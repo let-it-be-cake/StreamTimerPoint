@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamTimerPoint", "StreamTimerPoint\StreamTimerPoint.csproj", "{868752BA-1B77-4635-81A7-874C5403713D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTester", "ApiTester\ApiTester.csproj", "{C8AC9E6A-46CC-46FE-BFF3-F5D4005AFF12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{868752BA-1B77-4635-81A7-874C5403713D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{868752BA-1B77-4635-81A7-874C5403713D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{868752BA-1B77-4635-81A7-874C5403713D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{868752BA-1B77-4635-81A7-874C5403713D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8AC9E6A-46CC-46FE-BFF3-F5D4005AFF12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8AC9E6A-46CC-46FE-BFF3-F5D4005AFF12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8AC9E6A-46CC-46FE-BFF3-F5D4005AFF12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8AC9E6A-46CC-46FE-BFF3-F5D4005AFF12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {580D8C71-B41E-497E-8E85-6F1CAAB440B3}
+	EndGlobalSection
+EndGlobal
