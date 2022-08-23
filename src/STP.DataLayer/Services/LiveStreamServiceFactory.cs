@@ -1,27 +1,21 @@
-﻿using AutoMapper;
-using STP.DataLayer.API;
-using STP.DataLayer.Interfaces;
+﻿using STP.DataLayer.Interfaces;
 
 namespace STP.DataLayer.Services
 {
     internal class LiveStreamServiceFactory : IStreamFactory
     {
-        private readonly IUserCredentional _userCredentional;
-        private readonly ILiveStreamServiceCreator _liveStreamServiceCreator;
-        private readonly IMapper _mapper;
+        private readonly LiveStreamService _liveStreamService;
+        private readonly int _requestTimeout;
 
-        public LiveStreamServiceFactory(IUserCredentional userCredentional,
-            ILiveStreamServiceCreator liveStreamServiceCreator,
-            IMapper mapper)
+        public LiveStreamServiceFactory(LiveStreamService liveStreamService, int requestTimeout)
         {
-            _userCredentional = userCredentional;
-            _liveStreamServiceCreator = liveStreamServiceCreator;
-            _mapper = mapper;
+            _liveStreamService = liveStreamService;
+            _requestTimeout = requestTimeout;
         }
 
-        public Task<IStream> GetStreamAsync(string streamId)
+        public IStream GetStream(string streamId)
         {
-            return new LiveStreamService(await _userCredentional.GetUserCredentialAsync())
+            return new YoutubeStream(_liveStreamService, streamId, _requestTimeout);
         }
     }
 }

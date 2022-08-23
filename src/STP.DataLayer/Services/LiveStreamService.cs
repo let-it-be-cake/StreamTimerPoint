@@ -22,9 +22,9 @@ namespace STP.DataLayer.Services
 
         private readonly IUserCredentional _userCredentional;
         private readonly IMapper _mapper;
-
-        public LiveStreamService(IUserCredentional userCredentional, IMapper mapper)
-            : base()
+        
+        public LiveStreamService(IUserCredentional userCredentional, IMapper mapper, string applicationName)
+            : base(new Initializer { ApplicationName = applicationName })
         {
             _userCredentional = userCredentional;
             _mapper = mapper;

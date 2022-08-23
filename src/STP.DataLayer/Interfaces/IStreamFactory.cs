@@ -2,6 +2,6 @@
 {
     internal interface IStreamFactory
     {
-        public IStream GetStreamAsync(string streamId);
+        public IStream GetStream(string streamId);
     }
 }
