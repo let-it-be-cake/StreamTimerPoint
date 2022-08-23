@@ -1,8 +1,8 @@
 ﻿using Google.Apis.Auth.OAuth2;
 
-namespace STP.DataLayer.API
+namespace STP.DataLayer.Interfaces
 {
-    public interface IUserCredentional
+    internal interface IUserCredentional
     {
         public Task<UserCredential> GetUserCredentialAsync();
     }
