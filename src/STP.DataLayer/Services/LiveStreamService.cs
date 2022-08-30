@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Google.Apis.Util;
 using Google.Apis.YouTube.v3;
-using STP.DataLayer.API;
+using STP.DataLayer.Interfaces;
 using STP.DataLayer.Models;
 
 namespace STP.DataLayer.Services
@@ -42,6 +42,26 @@ namespace STP.DataLayer.Services
         public Task<StreamInfo?> GetStreamInfoAsync(string streamId)
         {
             return ExecuteAsync(_streamInfoPart, streamId);
+        }
+
+        public async Task<List<StreamInfo>> GetUserStreamsAsync()
+        {
+            var request = LiveStreams.List(new Repeatable<string>(new[]
+                {
+                    StreamPart.Id.ToString(),
+                }));
+            request.Credential = await _userCredentional.GetUserCredentialAsync();
+            request.Mine = true;
+
+            try
+            {
+                var response = await request.ExecuteAsync();
+                return _mapper.Map<List<StreamInfo>>(response.Items);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         private async Task<StreamInfo?> ExecuteAsync(Repeatable<string> part, string streamId)

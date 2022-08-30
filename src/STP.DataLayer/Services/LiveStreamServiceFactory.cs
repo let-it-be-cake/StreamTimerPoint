@@ -2,12 +2,12 @@
 
 namespace STP.DataLayer.Services
 {
-    internal class LiveStreamServiceFactory : IStreamFactory
+    internal class LiveStreamFactory : IStreamFactory
     {
         private readonly LiveStreamService _liveStreamService;
         private readonly int _requestTimeout;
 
-        public LiveStreamServiceFactory(LiveStreamService liveStreamService, int requestTimeout)
+        public LiveStreamFactory(LiveStreamService liveStreamService, int requestTimeout)
         {
             _liveStreamService = liveStreamService;
             _requestTimeout = requestTimeout;

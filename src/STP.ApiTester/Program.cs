@@ -181,7 +181,6 @@ namespace Google.Apis.YouTube.Samples
             {
                 Console.WriteLine(e);
             }
-
         }
     }
 }

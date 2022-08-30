@@ -5,21 +5,21 @@ namespace STP.Composition
 {
     public class ContainerInstaller
     {
-        private readonly ContainerOptions _options;
         private readonly ContainerBuilder _builder;
+        private readonly ContainerOptions _options;
 
-        public ContainerInstaller(ContainerBuilder builder, ContainerOptions options)
+        public ContainerInstaller(ContainerOptions options, ContainerBuilder? builder = null)
         {
             _options = options;
-            _builder = builder;
+            _builder = builder ?? new();
         }
 
-        public void Install()
+        public ContainerBuilder Install()
         {
-            //var assemblies = Assembly.GetEntryAssembly()!.GetReferencedAssemblies();
-
+            new MapperInstaller().Install(_builder);
             new DataLayerServicesInstaller(_options).Install(_builder);
-            new UIStartupInstaller(_options).Install(_builder);
+
+            return _builder;
         }
     }
 }

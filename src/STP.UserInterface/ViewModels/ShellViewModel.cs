@@ -1,12 +1,12 @@
 ﻿using Caliburn.Micro;
-using STP.DataLayer.Interfaces;
+using STP.DataLayer.API;
 using System.Windows;
 
 namespace STP.UserInterface.ViewModels
 {
     public class ShellViewModel : PropertyChangedBase
     {
-        private readonly IStreamService _authorizeService;
+        private readonly IStreamsService _streamsService;
         private string? _name;
 
         public string? Name
@@ -30,9 +30,9 @@ namespace STP.UserInterface.ViewModels
             MessageBox.Show(string.Format("Hello {0}!", Name)); //Don't do this in real life :)
         }
 
-        public ShellViewModel(IStreamService authorizeService)
+        public ShellViewModel(IStreamsService streamsService)
         {
-            _authorizeService = authorizeService;
+            _streamsService = streamsService;
         }
     }
 }

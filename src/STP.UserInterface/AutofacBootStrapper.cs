@@ -7,6 +7,8 @@ using System.Linq;
 using System.Windows;
 using STP.Composition;
 using STP.UserInterface.ViewModels;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 using IContainer = Autofac.IContainer;
 
 namespace STP.UserInterface
@@ -22,44 +24,23 @@ namespace STP.UserInterface
 
         protected override void Configure()
         {
-
-            // Grab the configuration as an object
-            //services.Configure<ContainerOptions>(Configuration);
-            //var containerOptions = Configuration.Get<ContainerOptions>();
-
-            //// Install the container, using our configuration
-            //var installer = new ContainerInstaller(containerOptions);
-            //var builder = installer.Install();
-
-            //// Pull the .net core dependencies into the container, like controllers
-            //builder.Populate(services);
-
             var builder = new ContainerBuilder();
 
-            builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
-                .Where(type => type.Name.EndsWith("ViewModel"))
-                .Where(type => !string.IsNullOrWhiteSpace(type.Namespace) && type.Namespace.EndsWith("ViewModels"))
-                .Where(type => type.GetInterface(typeof(INotifyPropertyChanged).Name) != null)
-                .AsSelf()
-                .InstancePerDependency();
+            ConfigureCaliburn(builder);
 
-            builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
-                .Where(type => type.Name.EndsWith("View"))
-                .Where(type => !(string.IsNullOrWhiteSpace(type.Namespace)) && type.Namespace.EndsWith("Views"))
-                .AsSelf()
-                .InstancePerDependency();
+            var configurations = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
 
-            builder.Register<IWindowManager>(c => new WindowManager()).InstancePerLifetimeScope();
-            builder.Register<IEventAggregator>(c => new EventAggregator()).InstancePerLifetimeScope();
-
-            new ContainerInstaller(builder, new ContainerOptions
+            var container = new ContainerInstaller(new ContainerOptions
             {
-                ApplicationName = "Qa",
-#warning Move to app.xaml
-                PathToSecrets = "client_secrets.json",
-            }).Install();
+                ApplicationName = "Stream timer point",
+                PathToSecrets = configurations.GetValue<string>("PathToSecrets"),
+                RequestTimeout = configurations.GetValue<int>("RequestsTimoutMs"),
+            }, builder).Install();
 
-            _container = builder.Build();
+            _container = container.Build();
         }
 
         protected override async void OnStartup(object sender, StartupEventArgs e)
@@ -95,6 +76,25 @@ namespace STP.UserInterface
         protected override void BuildUp(object instance)
         {
             Container!.InjectProperties(instance);
+        }
+
+        private void ConfigureCaliburn(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
+                .Where(type => type.Name.EndsWith("ViewModel"))
+                .Where(type => !string.IsNullOrWhiteSpace(type.Namespace) && type.Namespace.EndsWith("ViewModels"))
+                .Where(type => type.GetInterface(typeof(INotifyPropertyChanged).Name) != null)
+                .AsSelf()
+                .InstancePerDependency();
+
+            builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
+                .Where(type => type.Name.EndsWith("View"))
+                .Where(type => !string.IsNullOrWhiteSpace(type.Namespace) && type.Namespace.EndsWith("Views"))
+                .AsSelf()
+                .InstancePerDependency();
+
+            builder.Register<IWindowManager>(c => new WindowManager()).InstancePerLifetimeScope();
+            builder.Register<IEventAggregator>(c => new EventAggregator()).InstancePerLifetimeScope();
         }
     }
 }

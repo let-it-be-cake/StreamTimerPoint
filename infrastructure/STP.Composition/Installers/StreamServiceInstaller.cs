@@ -1,8 +1,7 @@
 ﻿using Autofac;
-using Google.Apis.Services;
-using Google.Apis.Util;
-using Google.Apis.YouTube.v3;
+using AutoMapper;
 using STP.DataLayer.API;
+using STP.DataLayer.Interfaces;
 using STP.DataLayer.Services;
 
 namespace STP.Composition.Installers
@@ -22,12 +21,20 @@ namespace STP.Composition.Installers
                 .As<IAuthorizeService>()
                 .As<IUserCredentional>()
                 .SingleInstance();
+
             builder.Register(c =>
-                new LiveStreamServiceCreator(c.Resolve<IUserCredentional>(), _options.ApplicationName))
-                .As<ILiveStreamServiceCreator>()
+                new LiveStreamService(c.Resolve<IUserCredentional>(), c.Resolve<IMapper>(), _options.ApplicationName))
+                .AsSelf()
                 .SingleInstance();
-            //builder.RegisterType<StreamService>().As<IStreamService>();
+
+            builder.Register(c =>
+                new LiveStreamFactory(c.Resolve<LiveStreamService>(), _options.RequestTimeout))
+                .As<IStreamFactory>()
+                .SingleInstance();
+
+            builder.RegisterType<StreamsService>()
+                .As<IStreamsService>()
+                .SingleInstance();
         }
     }
 }
-

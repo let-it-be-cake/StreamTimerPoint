@@ -2,6 +2,7 @@
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.YouTube.v3;
+using STP.DataLayer.Interfaces;
 
 namespace STP.DataLayer.Services
 {

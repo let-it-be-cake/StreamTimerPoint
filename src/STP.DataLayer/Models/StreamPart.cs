@@ -2,6 +2,7 @@
 {
     internal enum StreamPart
     {
+        Id,
         Snippet,
         Cdn,
         ContentDetails,
