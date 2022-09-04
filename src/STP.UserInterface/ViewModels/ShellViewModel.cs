@@ -1,38 +1,28 @@
 ﻿using Caliburn.Micro;
 using STP.DataLayer.API;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace STP.UserInterface.ViewModels
 {
-    public class ShellViewModel : PropertyChangedBase
+    internal class ShellViewModel : Conductor<object>
     {
-        private readonly IStreamsService _streamsService;
-        private string? _name;
+        private readonly StreamListViewModel _streamListViewModel;
 
-        public string? Name
+        public ShellViewModel(StreamListViewModel streamListViewModel)
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                NotifyOfPropertyChange(() => Name);
-                NotifyOfPropertyChange(() => CanSayHello);
-            }
+            _streamListViewModel = streamListViewModel;
         }
 
-        public bool CanSayHello
+        protected override async void OnViewLoaded(object view)
         {
-            get { return !string.IsNullOrWhiteSpace(Name); }
+            base.OnViewLoaded(view);
+            await StreamListAsync();
         }
 
-        public void SayHello()
+        public Task StreamListAsync()
         {
-            MessageBox.Show(string.Format("Hello {0}!", Name)); //Don't do this in real life :)
-        }
-
-        public ShellViewModel(IStreamsService streamsService)
-        {
-            _streamsService = streamsService;
+            return ActivateItemAsync(_streamListViewModel, default);
         }
     }
 }

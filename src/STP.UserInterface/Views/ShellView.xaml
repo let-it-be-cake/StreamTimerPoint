@@ -19,6 +19,6 @@
                 <MenuItem x:Name="About" Header="About" />
             </MenuItem>
         </Menu>
-        <ContentControl x:Name="ActiveItem" Margin="20" />
+        <ContentControl Grid.Row="1" x:Name="ActiveItem" Margin="20" />
     </StackPanel>
 </mah:MetroWindow>
