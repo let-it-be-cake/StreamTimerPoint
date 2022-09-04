@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using AutoMapper.Contrib.Autofac.DependencyInjection;
+using System.Reflection;
 
 namespace STP.Composition.Installers
 {
@@ -7,7 +8,12 @@ namespace STP.Composition.Installers
     {
         public void Install(ContainerBuilder builder)
         {
-            builder.RegisterAutoMapper();
+            var assemblies = Assembly
+                .GetExecutingAssembly()
+                .GetReferencedAssemblies()
+                .Select(x => Assembly.Load(x))
+                .ToArray();
+            builder.RegisterAutoMapper(propertiesAutowired: false, assemblies);
         }
     }
 }
