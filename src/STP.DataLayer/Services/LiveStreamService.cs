@@ -49,6 +49,8 @@ namespace STP.DataLayer.Services
             var request = LiveStreams.List(new Repeatable<string>(new[]
                 {
                     StreamPart.Id.ToString(),
+                    StreamPart.Snippet.ToString(),
+                    StreamPart.Status.ToString(),
                 }));
             request.Credential = await _userCredentional.GetUserCredentialAsync();
             request.Mine = true;

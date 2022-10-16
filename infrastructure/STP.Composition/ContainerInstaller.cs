@@ -18,6 +18,7 @@ namespace STP.Composition
         {
             new MapperInstaller().Install(_builder);
             new DataLayerServicesInstaller(_options).Install(_builder);
+            new TimeStampSaverInstaller(_options).Install(_builder);
 
             return _builder;
         }

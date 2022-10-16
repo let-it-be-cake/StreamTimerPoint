@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="STP.UserInterface.Views.StreamTimelineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:STP.UserInterface.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <StackPanel Margin="16">
+                    <TextBlock Text="{Binding StreamId}" />
+                    <TextBlock Text="{Binding KeyName}" />
+                    <TextBlock Text="{Binding Status}" />
+                </StackPanel>
+                <StackPanel Margin="16 32 16 0">
+                    <TextBlock>Label</TextBlock>
+                    <TextBox Margin="0 16" Text="{Binding StampLabel, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button x:Name="Add" Width="100" Grid.Row="1" HorizontalAlignment="Left">Add</Button>
+                </StackPanel>
+            </StackPanel>
+            <Canvas Grid.Row="1">
+            </Canvas>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="64"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding TimeStamps}" Margin="16,16,16,0" Grid.ColumnSpan="2" >
+            </ListBox>
+            <Button x:Name="Save" Width="100" Margin="16" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right">Save</Button>
+        </Grid>
+    </Grid>
+</UserControl>

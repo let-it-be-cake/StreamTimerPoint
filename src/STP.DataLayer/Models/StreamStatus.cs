@@ -2,7 +2,8 @@
 {
     public enum StreamStatus
     {
-        Active,
+        NotSet,
         Inactive,
+        Active,
     }
 }

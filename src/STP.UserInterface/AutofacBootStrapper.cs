@@ -38,6 +38,7 @@ namespace STP.UserInterface
                 ApplicationName = "Stream timer point",
                 PathToSecrets = configurations.GetValue<string>("PathToSecrets"),
                 RequestTimeout = configurations.GetValue<int>("RequestsTimoutMs"),
+                Pattern = configurations.GetValue<string>("Pattern"),
             }, builder).Install();
 
             _container = container.Build();

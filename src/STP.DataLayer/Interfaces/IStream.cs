@@ -3,7 +3,7 @@ using STP.DataLayer.Models;
 
 namespace STP.DataLayer.Interfaces
 {
-    internal interface IStream
+    public interface IStream
     {
         /// <summary>
         /// The stream in which the status will be checked.

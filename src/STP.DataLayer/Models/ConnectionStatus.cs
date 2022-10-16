@@ -2,6 +2,7 @@
 {
     public enum ConnectionStatus
     {
+        NotSet,
         AllDone,
         ConnectionError,
         BadConnection,

@@ -1,17 +1,17 @@
 ﻿using Caliburn.Micro;
-using STP.DataLayer.API;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace STP.UserInterface.ViewModels
 {
-    internal class ShellViewModel : Conductor<object>
+    internal class ShellViewModel : Conductor<object>, IHandle<StreamTimelineViewModel>
     {
         private readonly StreamListViewModel _streamListViewModel;
 
-        public ShellViewModel(StreamListViewModel streamListViewModel)
+        public ShellViewModel(StreamListViewModel streamListViewModel, IEventAggregator eventAggregator)
         {
             _streamListViewModel = streamListViewModel;
+            eventAggregator.SubscribeOnUIThread(this);
         }
 
         protected override async void OnViewLoaded(object view)
@@ -22,7 +22,12 @@ namespace STP.UserInterface.ViewModels
 
         public Task StreamListAsync()
         {
-            return ActivateItemAsync(_streamListViewModel, default);
+            return ActivateItemAsync(_streamListViewModel);
+        }
+
+        public Task HandleAsync(StreamTimelineViewModel message, CancellationToken cancellationToken)
+        {
+            return ActivateItemAsync(message);
         }
     }
 }

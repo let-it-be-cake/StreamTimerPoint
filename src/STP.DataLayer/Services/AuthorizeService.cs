@@ -21,11 +21,11 @@ namespace STP.DataLayer.Services
 
         public async Task AuthorizeAsync()
         {
-            _userCredential =  await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                               _secrets ?? await LoadSecretsAsync(),
-                               new string[] { YouTubeService.Scope.YoutubeReadonly },
-                               "user",
-                               CancellationToken.None);
+            _userCredential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                await LoadSecretsAsync(),
+                new[] { YouTubeService.Scope.YoutubeReadonly, },
+                "user",
+                CancellationToken.None);
         }
 
         public Task ReauthorizeAsync()
@@ -40,7 +40,7 @@ namespace STP.DataLayer.Services
         {
             await new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
             {
-                ClientSecrets = _secrets ?? await LoadSecretsAsync(),
+                ClientSecrets = await LoadSecretsAsync(),
             }).DeleteTokenAsync(_secrets!.ClientId, default);
         }
 
@@ -56,9 +56,12 @@ namespace STP.DataLayer.Services
 
         private async Task<ClientSecrets> LoadSecretsAsync()
         {
-            using var stream = new FileStream(_credentialPath, FileMode.Open, FileAccess.Read);
+            if (_secrets is null)
+            {
+                using var stream = new FileStream(_credentialPath, FileMode.Open, FileAccess.Read);
+                _secrets = (await GoogleClientSecrets.FromStreamAsync(stream)).Secrets;
+            }
 
-            _secrets = (await GoogleClientSecrets.FromStreamAsync(stream)).Secrets;
             return _secrets;
         }
     }

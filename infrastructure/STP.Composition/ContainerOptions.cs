@@ -1,11 +1,13 @@
 ﻿namespace STP.Composition
 {
-    public struct ContainerOptions
+    public readonly struct ContainerOptions
     {
-        public string ApplicationName { get; set; }
+        public string ApplicationName { get; init; }
 
-        public string PathToSecrets { get; set; }
+        public string PathToSecrets { get; init; }
 
-        public int RequestTimeout { get; set; }
+        public string Pattern { get; init; }
+
+        public int RequestTimeout { get; init; }
     }
 }
