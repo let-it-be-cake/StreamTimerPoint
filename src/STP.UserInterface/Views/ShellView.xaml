@@ -7,7 +7,11 @@
         xmlns:local="clr-namespace:STP.UserInterface.Views"
         mc:Ignorable="d"
         Title="ShellView" Height="450" Width="800">
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Menu>
             <!--<MenuItem x:Name="FileMenu" Header="File" IsEnabled="{Binding CanFileMenu}" />-->
             <MenuItem Header="Edit" />
@@ -20,5 +24,5 @@
             </MenuItem>
         </Menu>
         <ContentControl Grid.Row="1" x:Name="ActiveItem" Margin="20" />
-    </StackPanel>
+    </Grid>
 </mah:MetroWindow>

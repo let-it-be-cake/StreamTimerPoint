@@ -20,9 +20,12 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <StackPanel Margin="16">
-                    <TextBlock Text="{Binding StreamId}" />
+                <StackPanel Margin="16 0">
+                    <TextBlock FontSize="26" Text="Stream Id:" />
+                    <TextBlock Margin="16 0 16 0" FontFamily="Fixed Miriam Transparent" FontSize="16" Text="{Binding StreamId}" />
+                    <TextBlock FontSize="26" Text="Key Name:" />
                     <TextBlock Text="{Binding KeyName}" />
+                    <TextBlock FontSize="26" Text="Status" />
                     <TextBlock Text="{Binding Status}" />
                 </StackPanel>
                 <StackPanel Margin="16 32 16 0">

@@ -16,11 +16,11 @@ namespace STP.UserInterface.ViewModels
 
         private readonly ITimeStampsSaver _timeStampsSaver;
 
-        public string StreamId => $"Stream id: {StreamInfo!.Value.Id}";
+        public string StreamId => StreamInfo!.Value.Id;
 
-        public string KeyName => $"Key name: {StreamInfo!.Value.Name}";
+        public string KeyName => $"{StreamInfo!.Value.Name}";
 
-        public string Status => $"Status: {_status}";
+        public string Status => _status.ToString();
 
         public string StampLabel
         {

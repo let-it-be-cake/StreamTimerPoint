@@ -9,7 +9,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
                 <ResourceDictionary>
-                    <local:Bootstrapper x:Key="bootstrapper" />
+                    <local:Bootstrapper x:Key="Bootstrapper" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
